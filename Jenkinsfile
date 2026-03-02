@@ -5,11 +5,10 @@ pipeline {
         DOCKER_IMAGE = "raakeshdevops/capstone-app"
     }
 
-    stages {
-
         stage('Clone') {
             steps {
-                git 'https://github.com/yourusername/yourrepo.git'
+                git credentialsId: 'github-creds',
+                    url: 'https://github.com/Raakeshgideon/Devops-capstone/.git'
             }
         }
 
@@ -36,4 +35,5 @@ pipeline {
         }
     }
 }
+
 
