@@ -5,10 +5,12 @@ pipeline {
         DOCKER_IMAGE = "raakeshdevops/capstone-app"
     }
 
+    stages {
+
         stage('Clone') {
             steps {
                 git credentialsId: 'github-creds',
-                    url: 'https://github.com/Raakeshgideon/Devops-capstone/.git'
+                    url: 'https://github.com/Raakeshgideon/Devops-capstone.git'
             }
         }
 
@@ -21,8 +23,8 @@ pipeline {
         stage('Login to DockerHub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds',
-                                                 usernameVariable: 'raakeshdevops',
-                                                 passwordVariable: 'Raakesh@24')]) {
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS')]) {
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
                 }
             }
@@ -35,5 +37,3 @@ pipeline {
         }
     }
 }
-
-
