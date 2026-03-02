@@ -17,10 +17,12 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-creds',
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_PASS'
+                    usernameVariable: 'raakeshdevops',
+                    passwordVariable: 'Raakesh@24'
                 )]) {
-                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    sh '''
+                        echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+                    '''
                 }
             }
         }
@@ -28,6 +30,16 @@ pipeline {
         stage('Push Image') {
             steps {
                 sh 'docker push $DOCKER_IMAGE:latest'
+            }
+        }
+
+        stage('Deploy Container') {
+            steps {
+                sh '''
+                    docker stop capstone || true
+                    docker rm capstone || true
+                    docker run -d -p 5000:5000 --name capstone $DOCKER_IMAGE:latest
+                '''
             }
         }
     }
