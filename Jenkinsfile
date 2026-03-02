@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "yourdockerhubusername/capstone-app"
+        DOCKER_IMAGE = "raakeshdevops/capstone-app"
     }
 
     stages {
@@ -36,3 +36,4 @@ pipeline {
         }
     }
 }
+
