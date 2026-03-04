@@ -18,4 +18,4 @@ docker run -d -p 5000:5000 capstone-app
 
 Open browser
 
-http://<EC2_PUBLIC_IP>:5000
+http://<EC2_PUBLIC_IP>:5000.
