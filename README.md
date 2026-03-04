@@ -1,10 +1,21 @@
-# DevOps Capstone Project
+## Application Setup
 
-CI/CD pipeline using:
-- GitHub
-- Jenkins
-- Docker
-- DockerHub
-- AWS EC2
+Clone the repository
 
-Webhook testing commit.
+git clone https://github.com/Raakeshgideon/Devops-capstone.git
+
+cd Devops-capstone
+
+## Run Application with Docker
+
+Build Docker Image
+
+docker build -t capstone-app .
+
+Run Container
+
+docker run -d -p 5000:5000 capstone-app
+
+Open browser
+
+http://<EC2_PUBLIC_IP>:5000
