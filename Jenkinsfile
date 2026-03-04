@@ -1,46 +1,31 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_IMAGE = "raakeshdevops/capstone-app"
-    }
-
     stages {
 
-        stage('Build Docker Image') {
+        stage('Clone Code') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE:latest .'
+                git 'https://github.com/YOUR-USERNAME/YOUR-REPO.git'
             }
         }
 
-        stage('Login to DockerHub') {
+        stage('Build') {
             steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-creds',
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_PASS'
-                )]) {
-                    sh '''
-                        echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-                    '''
-                }
+                echo "Building Application..."
             }
         }
 
-        stage('Push Image') {
+        stage('Test') {
             steps {
-                sh 'docker push $DOCKER_IMAGE:latest'
+                echo "Running Tests..."
             }
         }
 
-        stage('Deploy Container') {
+        stage('Deploy') {
             steps {
-                sh '''
-                    docker stop capstone || true
-                    docker rm capstone || true
-                    docker run -d -p 5000:5000 --name capstone $DOCKER_IMAGE:latest
-                '''
+                echo "Deploying Application..."
             }
         }
+
     }
 }
